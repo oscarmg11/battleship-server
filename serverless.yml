@@ -1,0 +1,28 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: oscarm
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: battleship-server
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  environment:
+    MONGO_URI: ${env:MONGO_URI}
+
+plugins:
+  - serverless-offline
+
+functions:
+  websocket:
+    handler: src/websocket.handler
+    environment:
+
+
+    events:
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $default
