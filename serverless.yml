@@ -9,16 +9,26 @@ provider:
   runtime: nodejs20.x
   environment:
     MONGO_URI: ${env:MONGO_URI}
+    ENVIRONMENT: DEV
 
 plugins:
   - serverless-offline
 
+custom:
+  serverless-offline:
+    port: 3000
+
 functions:
+  api:
+    handler: src/httpApi.handler
+    events:
+      - httpApi:
+          method: ANY
+          path: /game/{any+}
+
+
   websocket:
     handler: src/websocket.handler
-    environment:
-
-
     events:
       - websocket:
           route: $disconnect
