@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --envFile .env",
+    "dev": "nodemon",
     "format": "prettier src --write"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "3.687.0",
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.687.0",
+    "aws-sdk": "^2.1692.0",
     "express": "4.21.1",
     "mongodb": "^6.10.0",
     "serverless-http": "3.2.0"
