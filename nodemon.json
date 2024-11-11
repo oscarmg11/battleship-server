@@ -1,5 +1,5 @@
 {
   "watch": ["src"],
   "ext": "ts",
-  "exec": "serverless offline --stage development && npm run format"
+  "exec": "npm run format && serverless offline --stage development"
 }
