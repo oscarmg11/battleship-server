@@ -1,6 +1,7 @@
 import { findGameInDbByRoomId } from '@/db/game/findGameInDbByRoomId'
 import { createGame } from '@/business/game/createGame'
 import { webSocketHandler } from '@/webSocketHandler'
+import { disconnectFromGame } from '@/business/game/disconnectFromGame'
 
 export async function handler(req: Request) {
     if (req.requestContext.routeKey === '$connect') {
@@ -12,25 +13,28 @@ export async function handler(req: Request) {
         }
     }
 
-    if (req.requestContext.routeKey === '$default') {
-        const webSocketEvent = JSON.parse(req.body)
-        try {
-            await webSocketHandler({
-                webSocketEvent,
-                connectionId: req.requestContext.connectionId,
-            })
-            return {
-                statusCode: 200,
-            }
-        } catch (e: any) {
-            return {
-                statusCode: 500,
-            }
+    if (req.requestContext.routeKey === '$disconnect') {
+        await disconnectFromGame({
+            connectionId: req.requestContext.connectionId,
+        })
+        return {
+            statusCode: 200,
         }
     }
 
-    return {
-        statusCode: 200,
+    const webSocketEvent = JSON.parse(req.body)
+    try {
+        await webSocketHandler({
+            webSocketEvent,
+            connectionId: req.requestContext.connectionId,
+        })
+        return {
+            statusCode: 200,
+        }
+    } catch (e: any) {
+        return {
+            statusCode: 500,
+        }
     }
 }
 
