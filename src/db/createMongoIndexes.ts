@@ -15,3 +15,5 @@ export async function createMongoIndexes() {
         .collection('game')
         .createIndex({ roomId: -1 }, { background: true })
 }
+
+createMongoIndexes()
