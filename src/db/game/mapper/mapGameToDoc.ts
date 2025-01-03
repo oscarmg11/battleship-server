@@ -5,6 +5,8 @@ export function mapGameToDoc(game: Game | Omit<Game, 'gameId'>): GameDoc {
     return {
         roomId: game.roomId,
         hostConnectionId: game.hostConnectionId,
+        rivalConnectionId: game.rivalConnectionId,
         createdAt: game.createdAt,
+        deleteAt: game.deleteAt,
     }
 }

@@ -10,12 +10,16 @@ export function mapDocToGame(
         gameId: doc._id.toString(),
         roomId: doc.roomId,
         hostConnectionId: doc.hostConnectionId,
+        rivalConnectionId: doc.rivalConnectionId,
         createdAt: doc.createdAt,
+        deleteAt: doc.deleteAt,
     }
 }
 
 export type GameDoc = {
     roomId: string
     hostConnectionId?: string
+    rivalConnectionId?: string
     createdAt: Date
+    deleteAt?: Date
 }
