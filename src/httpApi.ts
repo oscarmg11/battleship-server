@@ -3,9 +3,8 @@ import { ApiErrors } from '@/constant/ApiErrors'
 
 export async function handler(req: Request) {
     const path = req.requestContext.http.path
-
     try {
-        const response = await apiHandler(path)
+        const response = await apiHandler(path, JSON.parse(req.body))
         return {
             statusCode: 200,
             body: JSON.stringify(response),
@@ -29,6 +28,7 @@ export async function handler(req: Request) {
 }
 
 type Request = {
+    body: any
     requestContext: {
         accountId: string
         apiId: string
