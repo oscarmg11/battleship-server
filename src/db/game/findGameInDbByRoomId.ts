@@ -7,7 +7,7 @@ export async function findGameInDbByRoomId(
 ): Promise<Game | undefined> {
     const connection = await createDbConnection()
     const game = await connection
-        .db('admin')
+        .db('battleship')
         .collection<GameDoc>('game')
         .findOne({ roomId })
     return mapDocToGame(game)
