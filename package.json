@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-apigatewaymanagementapi": "^3.687.0",
     "aws-sdk": "^2.1692.0",
+    "date-fns": "^4.1.0",
     "express": "4.21.1",
     "mongodb": "^6.10.0",
     "serverless-http": "3.2.0"
