@@ -1,4 +1,4 @@
-import { createDbConnection } from '@/db/createDbConnection'
+import { createDbConnection } from '@/db/createDbConnection.ts'
 
 export async function createMongoIndexes() {
     const connection = await createDbConnection()
@@ -14,6 +14,8 @@ export async function createMongoIndexes() {
         .db('battleship')
         .collection('game')
         .createIndex({ roomId: -1 }, { background: true })
+
+    await connection.close()
 }
 
 createMongoIndexes()
