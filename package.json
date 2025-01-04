@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon",
+    "setup": "npx tsx --env-file=.env src/db/createMongoIndexes.ts",
     "format": "prettier src --write"
   },
   "author": "",
@@ -22,6 +24,7 @@
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.7",
     "prettier": "3.3.3",
-    "serverless-offline": "^14.3.4"
+    "serverless-offline": "^14.3.4",
+    "typescript": "^5.7.2"
   }
 }
