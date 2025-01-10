@@ -1,4 +1,5 @@
 import { connectHostToGame } from '@/business/game/connectHostToGame'
+import { connectRivalToGame } from '@/business/game/connectRivalToGame.ts'
 
 export async function webSocketHandler({
     webSocketEvent,
@@ -9,6 +10,12 @@ export async function webSocketHandler({
             await connectHostToGame({
                 gameId: webSocketEvent.data.gameId,
                 hostConnectionId: connectionId,
+            })
+            break
+        case 'connectRivalToGame':
+            await connectRivalToGame({
+                gameId: webSocketEvent.data.gameId,
+                rivalConnectionId: connectionId,
             })
             break
     }
@@ -24,4 +31,4 @@ type WebSocketEvent = {
     data: any
 }
 
-type Event = 'connectHostToGame'
+type Event = 'connectHostToGame' | 'connectRivalToGame'

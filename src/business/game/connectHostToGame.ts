@@ -8,7 +8,7 @@ export async function connectHostToGame({
     const game = await getGameInDb(gameId)
     await updateGameInDb({
         ...game,
-        hostConnectionId,
+        hostConnectionId: hostConnectionId,
     })
 }
 

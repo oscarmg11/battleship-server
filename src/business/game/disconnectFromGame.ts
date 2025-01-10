@@ -2,6 +2,7 @@ import { findGameInDbByHostConnectionId } from '@/db/game/findGameInDbByHostConn
 import { findGameInDbByRivalConnectionId } from '@/db/game/findGameInDbByRivalConnectionId'
 import { updateGameInDb } from '@/db/game/updateGameInDb'
 import { add } from 'date-fns'
+import { sendRivalDisconnectedFromGameWebSocketEvent } from '@/webSocketEvent/game/sendRivalDisconnectedFromGameWebSocketEvent.ts'
 
 export async function disconnectFromGame(params: Params): Promise<void> {
     let isHost = true
@@ -13,19 +14,27 @@ export async function disconnectFromGame(params: Params): Promise<void> {
     }
     if (!game) return
 
+    const rivalConnectionId = isHost
+        ? game.rivalConnectionId
+        : game.hostConnectionId
+
     const updatedGame = {
         ...game,
-        hostConnectionId: isHost
-            ? game.rivalConnectionId
-            : game.hostConnectionId,
+        hostConnectionId: rivalConnectionId,
         rivalConnectionId: undefined,
     }
 
-    if (!updatedGame.hostConnectionId && !updatedGame.rivalConnectionId) {
+    if (!rivalConnectionId) {
         updatedGame.deleteAt = add(new Date(), { days: 1 })
     }
 
     await updateGameInDb(updatedGame)
+
+    if (rivalConnectionId) {
+        await sendRivalDisconnectedFromGameWebSocketEvent({
+            rivalConnectionId: rivalConnectionId,
+        })
+    }
 }
 
 type Params = {

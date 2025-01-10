@@ -25,4 +25,8 @@ type Params = {
     data: any
 }
 
-type Event = 'onGameCreated' | 'onError'
+type Event =
+    | 'onGameCreated'
+    | 'onError'
+    | 'onRivalConnected'
+    | 'onRivalDisconnected'
