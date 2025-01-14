@@ -6,7 +6,7 @@ export async function apiHandler(path: string, req: any): Promise<any> {
     let response = undefined
     switch (path) {
         case '/game/createGame':
-            response = await createGameApi()
+            response = await createGameApi(req)
             break
         case '/game/getGame':
             response = await getGameApi(req)
