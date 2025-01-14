@@ -9,7 +9,7 @@ export async function connectHostToGame({
     await updateGameInDb({
         ...game,
         hostConnectionId: hostConnectionId,
-        rivalConnectionId: game.hostConnectionId,
+        rivalConnectionId: game.rivalConnectionId,
         deleteAt: undefined,
     })
 }

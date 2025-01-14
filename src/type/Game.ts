@@ -1,3 +1,5 @@
+import type { GameStatus } from '@/constant/GameStatus.ts'
+
 export type Game = {
     gameId: string
     roomId: string
@@ -5,6 +7,7 @@ export type Game = {
     rivalPlayerId?: string
     hostConnectionId?: string
     rivalConnectionId?: string
+    gameStatus: GameStatus
     createdAt: Date
     deleteAt?: Date
 }

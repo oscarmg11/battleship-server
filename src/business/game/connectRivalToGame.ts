@@ -2,6 +2,7 @@ import { getGameInDb } from '@/db/game/getGameInDb'
 import { updateGameInDb } from '@/db/game/updateGameInDb'
 import { sendWebSocketEvent } from '@/webSocketEvent/sendWebSocketEvent.ts'
 import { sendRivalConnectedToGameWebSocketEvent } from '@/webSocketEvent/game/sendRivalConnectedToGameWebSocketEvent.ts'
+import { GameStatuses } from '@/constant/GameStatus.ts'
 
 export async function connectRivalToGame({
     gameId,
@@ -14,6 +15,7 @@ export async function connectRivalToGame({
         rivalPlayerId: rivalPlayerId,
         hostConnectionId: game.hostConnectionId,
         rivalConnectionId: rivalConnectionId,
+        gameStatus: GameStatuses.SETTING_UP_GAME,
         deleteAt: undefined,
     })
     if (game.hostConnectionId) {
