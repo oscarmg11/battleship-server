@@ -1,5 +1,6 @@
 import { connectHostToGame } from '@/business/game/connectHostToGame'
 import { connectRivalToGame } from '@/business/game/connectRivalToGame.ts'
+import { sendSessionInfoWebSocketEvent } from '@/webSocketEvent/player/sendSessionInfoWebSocketEvent.ts'
 
 export async function webSocketHandler({
     webSocketEvent,
@@ -15,7 +16,13 @@ export async function webSocketHandler({
         case 'connectRivalToGame':
             await connectRivalToGame({
                 gameId: webSocketEvent.data.gameId,
+                rivalPlayerId: webSocketEvent.data.rivalPlayerId,
                 rivalConnectionId: connectionId,
+            })
+            break
+        case 'requestSessionInfo':
+            await sendSessionInfoWebSocketEvent({
+                connectionId,
             })
             break
     }
@@ -31,4 +38,4 @@ type WebSocketEvent = {
     data: any
 }
 
-type Event = 'connectHostToGame' | 'connectRivalToGame'
+type Event = 'connectHostToGame' | 'connectRivalToGame' | 'requestSessionInfo'

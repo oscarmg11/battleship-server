@@ -30,3 +30,4 @@ type Event =
     | 'onError'
     | 'onRivalConnected'
     | 'onRivalDisconnected'
+    | 'onSessionInfo'
