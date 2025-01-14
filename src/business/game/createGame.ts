@@ -3,12 +3,17 @@ import { insertGameInDb } from '@/db/game/insertGameInDb'
 import { getGameInDb } from '@/db/game/getGameInDb'
 import { Game } from '@/type/Game'
 
-export async function createGame(): Promise<Game> {
+export async function createGame(params: Params): Promise<Game> {
     const roomId = createRoomId()
     const gameId = await insertGameInDb({
         roomId,
+        hostPlayerId: params.playerId,
         createdAt: new Date(),
     })
     const game = await getGameInDb(gameId)
     return game
+}
+
+type Params = {
+    playerId: string
 }

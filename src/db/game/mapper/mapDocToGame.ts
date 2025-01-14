@@ -1,5 +1,4 @@
 import { Game } from '@/type/Game'
-import type { ObjectId } from 'mongodb'
 import { MongoDocument } from '@/db/type/MongoDocument'
 
 export function mapDocToGame(
@@ -9,6 +8,7 @@ export function mapDocToGame(
     return {
         gameId: doc._id.toString(),
         roomId: doc.roomId,
+        hostPlayerId: doc.hostPlayerId,
         hostConnectionId: doc.hostConnectionId,
         rivalConnectionId: doc.rivalConnectionId,
         createdAt: doc.createdAt,
@@ -18,6 +18,7 @@ export function mapDocToGame(
 
 export type GameDoc = {
     roomId: string
+    hostPlayerId: string
     hostConnectionId?: string
     rivalConnectionId?: string
     createdAt: Date
