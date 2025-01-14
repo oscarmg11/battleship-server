@@ -5,15 +5,15 @@ import { sendRivalConnectedToGameWebSocketEvent } from '@/webSocketEvent/game/se
 
 export async function connectRivalToGame({
     gameId,
+    rivalPlayerId,
     rivalConnectionId,
 }: Params): Promise<void> {
     const game = await getGameInDb(gameId)
     await updateGameInDb({
         ...game,
-        hostConnectionId: game.hostConnectionId ?? rivalConnectionId,
-        rivalConnectionId: game.hostConnectionId
-            ? rivalConnectionId
-            : undefined,
+        rivalPlayerId: rivalPlayerId,
+        hostConnectionId: game.hostConnectionId,
+        rivalConnectionId: rivalConnectionId,
         deleteAt: undefined,
     })
     if (game.hostConnectionId) {
@@ -25,5 +25,6 @@ export async function connectRivalToGame({
 
 type Params = {
     gameId: string
+    rivalPlayerId: string
     rivalConnectionId: string
 }
